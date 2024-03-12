@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
-const HOOK_CONTENT = `yarn galacrypt write --git-add\n`;
+const HOOK_CONTENT = `yarn galacrypt decrypt --git-add\n`;
 const HOOK_CONTENT_WITH_SHEBANG = `#!/bin/sh\n${HOOK_CONTENT}`;
 const DEFAULT_HOOKS_PATH = '.git/hooks';
 const HUSKY_DIR = '.husky';
