@@ -3,7 +3,12 @@ import * as fs from 'node:fs';
 const HOOK_CONTENT = `yarn galacrypt write --git-add\n`;
 const HOOK_CONTENT_WITH_SHEBANG = `#!/bin/sh\n${HOOK_CONTENT}`;
 const DEFAULT_HOOKS_PATH = '.git/hooks';
+const HUSKY_DIR = '.husky';
 const gethooksPath = () => {
+    const huskyExists = fs.existsSync(HUSKY_DIR);
+    if (huskyExists) {
+        return HUSKY_DIR;
+    }
     try {
         const path = execSync('git config core.hooksPath').toString();
         return path.trim();
