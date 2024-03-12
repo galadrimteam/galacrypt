@@ -6,19 +6,39 @@ import { encryptFiles } from './commands/encryptFiles.js';
 import { setupExistingProject } from './commands/setupExistingProject.js';
 import { getConfig } from './getConfig.js';
 
-const COMMANDS = ['read', 'write', 'create', 'use'] as const;
+const OLD_COMMANDS = ['read', 'write', 'create'] as const;
+const COMMANDS = ['use', 'init', 'encrypt', 'decrypt'] as const;
+const ALL_COMMANDS = [...OLD_COMMANDS, ...COMMANDS] as const;
 
+type CommandAlias = (typeof ALL_COMMANDS)[number];
 type Command = (typeof COMMANDS)[number];
 
-// command should be 'read' or 'write'
-if (process.argv.length < 3 || !COMMANDS.includes(process.argv[2] as Command)) {
-  console.error(`Usage: galacrypt ${COMMANDS.join('|')}`);
+const COMMANDS_ALIASES: { [key in CommandAlias]: Command } = {
+  create: 'init',
+  init: 'init',
+  decrypt: 'decrypt',
+  read: 'decrypt',
+  encrypt: 'encrypt',
+  write: 'encrypt',
+  use: 'use',
+};
+
+const USAGE_TEXT = `Usage:
+galacrypt init -> Setup on a new project
+galacrypt use <key> -> Setup on an existing project
+galacrypt encrypt -> Encrypt files
+galacrypt decrypt -> Decrypt files`;
+
+const commandAlias = process.argv[2] as CommandAlias | undefined;
+
+if (commandAlias === undefined || process.argv.length < 3 || !ALL_COMMANDS.includes(commandAlias)) {
+  console.error(USAGE_TEXT);
   process.exit(0);
 }
 
-const command = process.argv[2]! as 'read' | 'write' | 'create' | 'use';
+const command = COMMANDS_ALIASES[commandAlias];
 
-if (command === 'create') {
+if (command === 'init') {
   const key = createProject();
 
   console.log('Generated key:', key);
@@ -38,12 +58,12 @@ if (!config.ok) {
   process.exit(1);
 }
 
-if (command === 'read') {
+if (command === 'decrypt') {
   decryptFiles(config.result);
   process.exit(0);
 }
 
-if (command === 'write') {
+if (command === 'encrypt') {
   encryptFiles(config.result);
   process.exit(0);
 }
