@@ -1,14 +1,21 @@
 import * as fs from 'node:fs';
-import { z } from 'zod';
 import { readGalacryptFile } from './galacryptFileIo.js';
 const CONFIG_PATH = '.galacryptrc.json';
-const zGalacryptFile = z.object({
-    input: z.string(),
-    output: z.string(),
-});
-const zGalacryptConfig = z.object({
-    files: z.array(zGalacryptFile),
-});
+function validateGalacryptConfig(config) {
+    if (typeof config !== 'object' || config === null)
+        throw new Error('Config must be an object');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!Array.isArray(config.files))
+        throw new Error('Config must have a "files" array');
+    for (const file of config.files) {
+        if (typeof file !== 'object' || file === null)
+            throw new Error('Each file must be an object');
+        if (typeof file.input !== 'string')
+            throw new Error('Each file must have an "input" string');
+        if (typeof file.output !== 'string')
+            throw new Error('Each file must have an "output" string');
+    }
+}
 const getConfigText = () => {
     try {
         // read json file
@@ -24,12 +31,14 @@ export const getConfig = () => {
     if (!res.ok)
         return res;
     try {
-        // parse json
-        const config = zGalacryptConfig.parse(JSON.parse(res.result));
         const key = readGalacryptFile();
-        return { ok: true, result: { ...config, key } };
+        const parsedConfig = JSON.parse(res.result);
+        validateGalacryptConfig(parsedConfig);
+        return { ok: true, result: { ...parsedConfig, key } };
     }
-    catch {
+    catch (e) {
+        if (e instanceof Error)
+            return { ok: false, error: e.message };
         return { ok: false, error: 'Error parsing config file' };
     }
 };

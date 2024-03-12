@@ -22,7 +22,7 @@ if (command === 'create') {
   const key = createProject();
 
   console.log('Generated key:', key);
-  console.log('YOU MUST SAVE THIS KEY INTO PASSBOLT AND SHARE IT WITH YOUR TEAM');
+  console.log('You should save this key in your team password managment system');
   process.exit(0);
 }
 

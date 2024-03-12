@@ -1,13 +1,13 @@
 # Galacrypt
 
-Alternative to transcrypt with simpler mental model
+Alternative to transcrypt with simpler mental model and 0 dependencies
 
 ## Why Galacrypt ?
 
 - Pushing .env files is just not for me (transcrypt encrypt/decrypt .env files on the fly before commiting)
 - I think commiting .env adds a mental charge of making sure transcrypt is well configured before pushing your .env (counter intuitive action)
 - In fact I think that transcrypt way "looks like a hack", what is done differs from what you see:
-  .e.g: you see a clear .env, but in the git file, it's encrypted.
+  e.g.: you see a clear .env, but in the git file, it's encrypted.
 
 **TLDR**: When dealing with secrets I prefer WYSIWYG
 
@@ -55,7 +55,7 @@ Run `yarn galacrypt create`
 
 this will do the following things:
 
-- create a galacrypt key, stored in .galacryptkey (you must gitignore this file and put the key in passbolt)
+- create a galacrypt key, stored in .galacryptkey (you must gitignore this file and save the key somewhere safe e.g. your password manager)
 - create a pre-commit hook that will run `galacrypt write` (you can see the generated script by running `cat .git/hooks/pre-commit`)
 - create the .galacryptrc.json file, you must then edit it to your needs (see the json example below)
 
@@ -80,7 +80,7 @@ here is the format :
 
 ### Setup for an existing project
 
-Search the galacrypt key of your project in passbolt
+Ask your team for the galacrypt key of your project
 
 Then use this command:
 
@@ -90,7 +90,7 @@ yarn galacrypt use <key>
 
 This will do the following things:
 
-- put the provided galacrypt key inside .galacryptkey (you should put this key in passbolt)
+- put the provided galacrypt key inside .galacryptkey
 - create a pre-commit hook that will run `galacrypt write` (you can see the generated script by running `cat .git/hooks/pre-commit`)
 
 ## Usage

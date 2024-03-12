@@ -23,9 +23,6 @@
     "prettier": "^3.2.5",
     "typescript": "~5.3.3"
   },
-  "dependencies": {
-    "zod": "^3.22.4"
-  },
   "bugs": {
     "url": "https://github.com/galadrimteam/galacrypt/issues"
   },
