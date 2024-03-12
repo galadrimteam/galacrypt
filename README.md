@@ -116,7 +116,7 @@ yarn galacrypt use <key>
 
 This should not break the pre-commit of the other tool (it will append our precommit to theirs)
 
-:hint: You can always check manually your git hooks, you can find them by running this:
+:bulb: You can always check manually your git hooks, you can find them by running this:
 
 ```bash
 git config core.hooksPath
