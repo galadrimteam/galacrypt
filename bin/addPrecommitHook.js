@@ -22,6 +22,7 @@ export const addPrecommitHook = () => {
             fs.appendFileSync(preCommitPath, `\n${HOOK_CONTENT}`);
         }
         console.info(`precommit hook modified, check it out here ${preCommitPath}`);
+        return;
     }
     fs.writeFileSync(preCommitPath, HOOK_CONTENT_WITH_SHEBANG, { mode: 0o755 });
     console.info(`precommit hook added, check it out here ${preCommitPath}`);
