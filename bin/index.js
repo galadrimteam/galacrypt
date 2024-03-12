@@ -8,7 +8,7 @@ const COMMANDS = ['read', 'write', 'create', 'use'];
 // command should be 'read' or 'write'
 if (process.argv.length < 3 || !COMMANDS.includes(process.argv[2])) {
     console.error(`Usage: galacrypt ${COMMANDS.join('|')}`);
-    process.exit(1);
+    process.exit(0);
 }
 const command = process.argv[2];
 if (command === 'create') {
