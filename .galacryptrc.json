@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "input": ".env",
+      "output": ".env.galacrypt"
+    }
+  ]
+}
