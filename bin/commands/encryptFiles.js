@@ -1,4 +1,4 @@
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
 import { encryptFile } from '../crypto.js';
 export const encryptFiles = (config) => {
     const shouldGitAdd = process.argv.includes('--git-add');

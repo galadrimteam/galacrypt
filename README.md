@@ -96,12 +96,30 @@ This will do the following things:
 ## Usage
 
 ```bash
-# to generate a new key on a new project
+# to setup galacrypt on a new project (will generate a new AES 256 key)
 yarn galacrypt create
 # to setup galacrypt on an existing project
 yarn galacrypt use <key>
-# to encrypt files set in .galacryptrc.json
+# to encrypt input files set in .galacryptrc.json to their output versions
 yarn galacrypt write
-# to decrypt files set in .galacryptrc.json
+# to decrypt output files set in .galacryptrc.json to their input versions
 yarn galacrypt read
 ```
+
+## Notes
+
+When you will setup another tool that use pre-commit hooks (e.g. husky), it might break the galacrypt pre-commit config, you can restore it by running again
+
+```bash
+yarn galacrypt use <key>
+```
+
+This should not break the pre-commit of the other tool (it will append our precommit to theirs)
+
+:hint: You can always check manually your git hooks, you can find them by running this:
+
+```bash
+git config core.hooksPath
+```
+
+If this returns nothing, you git hooks are in `.git/hooks`

@@ -1,20 +1,34 @@
+import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 
-const HOOK_CONTENT = `#!/bin/sh
-yarn galacrypt write --git-add
-`;
+const HOOK_CONTENT = `yarn galacrypt write --git-add\n`;
+const HOOK_CONTENT_WITH_SHEBANG = `#!/bin/sh\n${HOOK_CONTENT}`;
+const DEFAULT_HOOKS_PATH = '.git/hooks';
 
-const PRE_COMMIT_PATH = '.git/hooks/pre-commit';
+const gethooksPath = () => {
+  try {
+    const path = execSync('git config core.hooksPath').toString();
+
+    return path.trim();
+  } catch {
+    return DEFAULT_HOOKS_PATH;
+  }
+};
 
 export const addPrecommitHook = () => {
-  const hookAlreadyExists = fs.existsSync(PRE_COMMIT_PATH);
+  const hooksPath = gethooksPath();
+  const preCommitPath = `${hooksPath}/pre-commit`;
+  const hookAlreadyExists = fs.existsSync(preCommitPath);
 
   if (hookAlreadyExists) {
-    console.info(`a precommit hook already exists, check it out here ${PRE_COMMIT_PATH}`);
-    console.info('if you want to overwrite it, delete it and run this command again');
-    return;
-  }
+    const hookContent = fs.readFileSync(preCommitPath, 'utf-8');
 
-  fs.writeFileSync(PRE_COMMIT_PATH, HOOK_CONTENT, { mode: 0o755 });
-  console.info(`precommit hook added, check it out here ${PRE_COMMIT_PATH}`);
+    if (!hookContent.includes('galacrypt')) {
+      fs.appendFileSync(preCommitPath, `\n${HOOK_CONTENT}`);
+    }
+
+    console.info(`precommit hook modified, check it out here ${preCommitPath}`);
+  }
+  fs.writeFileSync(preCommitPath, HOOK_CONTENT_WITH_SHEBANG, { mode: 0o755 });
+  console.info(`precommit hook added, check it out here ${preCommitPath}`);
 };
