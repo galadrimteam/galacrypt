@@ -5,7 +5,7 @@ const hash = (input) => {
 };
 const encrypt = (text, secretKey) => {
     const iv = crypto.randomBytes(16); // Initialization vector
-    const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(secretKey), iv);
+    const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(secretKey, 'hex'), iv);
     let encrypted = cipher.update(text);
     encrypted = Buffer.concat([encrypted, cipher.final()]);
     return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
@@ -13,7 +13,7 @@ const encrypt = (text, secretKey) => {
 const decrypt = (text, secretKey) => {
     const iv = Buffer.from(text.iv, 'hex');
     const encryptedText = Buffer.from(text.encryptedData, 'hex');
-    const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(secretKey), iv);
+    const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(secretKey, 'hex'), iv);
     let decrypted = decipher.update(encryptedText);
     decrypted = Buffer.concat([decrypted, decipher.final()]);
     return decrypted.toString();

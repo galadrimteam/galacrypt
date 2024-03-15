@@ -9,7 +9,7 @@ const DEFAULT_CONFIG_FILE = `{
 `;
 
 export const createProject = () => {
-  const keyBinary = crypto.randomBytes(16);
+  const keyBinary = crypto.randomBytes(32);
   const keyHex = keyBinary.toString('hex');
 
   writeGalacryptFile(keyHex);
