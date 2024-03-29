@@ -9,6 +9,6 @@ export const setupExistingProject = (key?: string) => {
   }
   writeGalacryptFile(key);
   console.log('Key written to .galacryptkey');
-  console.log('You can now use the read and write commands to encrypt and decrypt your files');
+  console.log('You can now use the encrypt and decrypt commands to encrypt and decrypt your files');
   addPrecommitHook();
 };
