@@ -105,6 +105,12 @@ yarn galacrypt use <key>
 yarn galacrypt encrypt
 # to decrypt output files set in .galacryptrc.json to their input versions
 yarn galacrypt decrypt
+# to encrypt only some files (coma separated list of input files)
+galacrypt encrypt --only .env
+# to decrypt only some files (coma separated list of output files)
+galacrypt decrypt --only .env.galacrypt
+# to git add output files after encryption (used in the pre-commit hook)
+galacrypt encrypt --git-add
 ```
 
 ## Notes
