@@ -14,6 +14,9 @@ function validateGalacryptConfig(config) {
             throw new Error('Each file must have an "input" string');
         if (typeof file.output !== 'string')
             throw new Error('Each file must have an "output" string');
+        if (file.disableImplicitDecrypt !== undefined && typeof file.disableImplicitDecrypt !== 'boolean') {
+            throw new Error('disableImplicitDecrypt must be a boolean if specified');
+        }
     }
 }
 const getConfigText = () => {

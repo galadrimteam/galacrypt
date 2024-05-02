@@ -5,40 +5,19 @@ import { decryptFiles } from './commands/decryptFiles.js';
 import { encryptFiles } from './commands/encryptFiles.js';
 import { setupExistingProject } from './commands/setupExistingProject.js';
 import { getConfig } from './getConfig.js';
+import { GALACRYPT_OPTIONS, USAGE_TEXT } from './getOptions.js';
 
-const OLD_COMMANDS = ['read', 'write', 'create'] as const;
 const COMMANDS = ['use', 'init', 'encrypt', 'decrypt'] as const;
-const ALL_COMMANDS = [...OLD_COMMANDS, ...COMMANDS] as const;
 
-type CommandAlias = (typeof ALL_COMMANDS)[number];
-type Command = (typeof COMMANDS)[number];
+export type Command = (typeof COMMANDS)[number];
 
-const COMMANDS_ALIASES: { [key in CommandAlias]: Command } = {
-  create: 'init',
-  init: 'init',
-  decrypt: 'decrypt',
-  read: 'decrypt',
-  encrypt: 'encrypt',
-  write: 'encrypt',
-  use: 'use',
-};
+const command = GALACRYPT_OPTIONS._?.[0] as Command | undefined;
 
-const USAGE_TEXT = `Usage:
-galacrypt init -> Setup on a new project
-galacrypt use <key> -> Setup on an existing project
-galacrypt encrypt -> Encrypt files
-galacrypt decrypt -> Decrypt files
-galacrypt encrypt --only .env -> Encrypt only some files (coma separated list of input files)
-galacrypt decrypt --only .env.galacrypt -> Decrypt only some files (coma separated list of output files)`;
-
-const commandAlias = process.argv[2] as CommandAlias | undefined;
-
-if (commandAlias === undefined || process.argv.length < 3 || !ALL_COMMANDS.includes(commandAlias)) {
+if (command === undefined || !COMMANDS.includes(command)) {
+  console.error(`Invalid command '${command ?? ''}'`);
   console.error(USAGE_TEXT);
   process.exit(0);
 }
-
-const command = COMMANDS_ALIASES[commandAlias];
 
 if (command === 'init') {
   const key = createProject();
@@ -49,7 +28,7 @@ if (command === 'init') {
 }
 
 if (command === 'use') {
-  setupExistingProject(process.argv?.[3]);
+  setupExistingProject();
   process.exit(0);
 }
 

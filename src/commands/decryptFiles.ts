@@ -1,9 +1,11 @@
 import { decryptFile } from '../crypto.js';
 import { FullGalacryptConfig } from '../getConfig.js';
+import { GALACRYPT_OPTIONS } from '../getOptions.js';
 import { getOnlyOption } from './onlyOption.js';
 
 export const decryptFiles = (config: FullGalacryptConfig) => {
   const onlyOption = getOnlyOption(config, 'decrypt');
+  const decryptAllFiles = GALACRYPT_OPTIONS['--all'];
 
   if (!onlyOption.ok) {
     console.error(onlyOption.error);
@@ -12,6 +14,9 @@ export const decryptFiles = (config: FullGalacryptConfig) => {
 
   for (const file of config.files) {
     if (onlyOption.only && !onlyOption.only.has(file.output)) {
+      continue;
+    }
+    if (!onlyOption.only && !decryptAllFiles && file.disableImplicitDecrypt) {
       continue;
     }
     try {

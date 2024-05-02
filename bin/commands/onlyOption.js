@@ -1,25 +1,21 @@
+import { GALACRYPT_OPTIONS } from '../getOptions.js';
 export const getOnlyOption = (config, mode) => {
+    const comaSeparatedFiles = GALACRYPT_OPTIONS['--only'];
+    const files = comaSeparatedFiles ? comaSeparatedFiles.flatMap((s) => s.split(',')) : undefined;
     const fileKey = mode === 'decrypt' ? 'output' : 'input';
-    if (process.argv.length < 4)
+    if (!files) {
         return {
             ok: true,
-            only: null,
-        };
-    const optionIndex = process.argv.indexOf('--only');
-    if (optionIndex === -1) {
-        return {
-            ok: true,
-            only: null,
+            only: undefined,
         };
     }
-    const optionValue = process.argv?.[optionIndex + 1] ?? null;
-    if (!optionValue) {
+    if (files.length === 0) {
         return {
             ok: false,
             error: `Option '--only' requires a value`,
         };
     }
-    const onlySet = new Set(optionValue.split(','));
+    const onlySet = new Set(files);
     const allFilesSet = new Set(config.files.map((file) => file[fileKey]));
     for (const file of onlySet) {
         if (!allFilesSet.has(file)) {

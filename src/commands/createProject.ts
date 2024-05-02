@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as fs from 'node:fs';
-import { addPrecommitHook } from '../addPrecommitHook.js';
 import { writeGalacryptFile } from '../galacryptFileIo.js';
+import { addGitHooks } from '../hooks/addGitHooks.js';
 
 const DEFAULT_CONFIG_FILE = `{
   "files": []
@@ -18,7 +18,7 @@ export const createProject = () => {
     fs.writeFileSync('.galacryptrc.json', DEFAULT_CONFIG_FILE);
   }
 
-  addPrecommitHook();
+  addGitHooks();
 
   return keyHex;
 };

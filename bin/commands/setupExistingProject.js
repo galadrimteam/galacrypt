@@ -1,6 +1,8 @@
-import { addPrecommitHook } from '../addPrecommitHook.js';
 import { writeGalacryptFile } from '../galacryptFileIo.js';
-export const setupExistingProject = (key) => {
+import { GALACRYPT_OPTIONS } from '../getOptions.js';
+import { addGitHooks } from '../hooks/addGitHooks.js';
+export const setupExistingProject = () => {
+    const key = GALACRYPT_OPTIONS._?.[1];
     if (!key) {
         console.error('You must provide a key with the use command');
         console.error('Usage: galacrypt use <key>');
@@ -9,6 +11,6 @@ export const setupExistingProject = (key) => {
     writeGalacryptFile(key);
     console.log('Key written to .galacryptkey');
     console.log('You can now use the encrypt and decrypt commands to encrypt and decrypt your files');
-    addPrecommitHook();
+    addGitHooks();
 };
 //# sourceMappingURL=setupExistingProject.js.map

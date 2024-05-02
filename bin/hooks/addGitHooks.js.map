@@ -1,0 +1,1 @@
+{"version":3,"file":"addGitHooks.js","sourceRoot":"","sources":["../../src/hooks/addGitHooks.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,uBAAuB,CAAC;AACzD,OAAO,EAAE,kBAAkB,EAAE,MAAM,yBAAyB,CAAC;AAC7D,OAAO,EAAE,gBAAgB,EAAE,MAAM,uBAAuB,CAAC;AAEzD,MAAM,CAAC,MAAM,WAAW,GAAG,GAAG,EAAE;IAC9B,gBAAgB,EAAE,CAAC;IACnB,gBAAgB,EAAE,CAAC;IACnB,kBAAkB,EAAE,CAAC;AACvB,CAAC,CAAC"}

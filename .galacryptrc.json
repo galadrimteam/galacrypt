@@ -2,7 +2,12 @@
   "files": [
     {
       "input": ".env",
-      "output": ".env.galacrypt"
+      "output": ".env.galacrypt",
+      "disableImplicitDecrypt": true
+    },
+    {
+      "input": ".env.staging",
+      "output": ".env.staging.galacrypt"
     }
   ]
 }

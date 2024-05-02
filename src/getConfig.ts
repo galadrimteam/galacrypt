@@ -4,7 +4,17 @@ import { readGalacryptFile } from './galacryptFileIo.js';
 const CONFIG_PATH = '.galacryptrc.json';
 
 export interface GalacryptConfig {
-  files: { input: string; output: string }[];
+  files: {
+    /** Path to the input file */
+    input: string;
+    /** Path to the output file */
+    output: string;
+    /**
+     * Whether the file is decrypted automatically or only when specified with `--only`
+     * @default false
+     */
+    disableImplicitDecrypt?: boolean;
+  }[];
 }
 
 function validateGalacryptConfig(config: unknown): asserts config is GalacryptConfig {
@@ -16,6 +26,9 @@ function validateGalacryptConfig(config: unknown): asserts config is GalacryptCo
     if (typeof file !== 'object' || file === null) throw new Error('Each file must be an object');
     if (typeof file.input !== 'string') throw new Error('Each file must have an "input" string');
     if (typeof file.output !== 'string') throw new Error('Each file must have an "output" string');
+    if (file.disableImplicitDecrypt !== undefined && typeof file.disableImplicitDecrypt !== 'boolean') {
+      throw new Error('disableImplicitDecrypt must be a boolean if specified');
+    }
   }
 }
 
