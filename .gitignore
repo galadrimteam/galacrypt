@@ -2,4 +2,4 @@ node_modules
 build
 .galacryptkey
 .env
-.env.*
+.env.staging
