@@ -13,6 +13,11 @@ export const GALACRYPT_OPTIONS = parseArgsOrExitWithMessage(
     '--only': [String],
     '--git-add': Boolean,
     '--all': Boolean,
+    '--yarn': Boolean,
+    '--pnpm': Boolean,
+    '--npm': Boolean,
+    '--bun': Boolean,
+    '--package-manager': String,
   },
   USAGE_TEXT
 );

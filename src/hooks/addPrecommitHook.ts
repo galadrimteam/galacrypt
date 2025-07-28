@@ -1,10 +1,27 @@
 import * as fs from 'node:fs';
+import { GalacryptOptions } from '../getOptions.js';
 import { gethooksPath } from './gethooksPath.js';
 
-const HOOK_CONTENT = `yarn galacrypt encrypt --git-add\n`;
-const HOOK_CONTENT_WITH_SHEBANG = `#!/bin/sh\n${HOOK_CONTENT}`;
+const getPackageManager = (options: GalacryptOptions) => {
+  if (options['--pnpm']) {
+    return 'pnpm';
+  }
+  if (options['--npm']) {
+    return 'npm';
+  }
+  if (options['--bun']) {
+    return 'bun';
+  }
+  if (options['--package-manager']) {
+    return options['--package-manager'];
+  }
+  return 'yarn';
+};
 
-export const addPrecommitHook = () => {
+export const addPrecommitHook = (options: GalacryptOptions) => {
+  const packageManager = getPackageManager(options);
+  const HOOK_CONTENT = `${packageManager} galacrypt encrypt --git-add\n`;
+  const HOOK_CONTENT_WITH_SHEBANG = `#!/bin/sh\n${HOOK_CONTENT}`;
   const hooksPath = gethooksPath();
   const preCommitPath = `${hooksPath}/pre-commit`;
   const hookAlreadyExists = fs.existsSync(preCommitPath);
