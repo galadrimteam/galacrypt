@@ -8,6 +8,10 @@
     {
       "input": ".env.staging",
       "output": ".env.staging.galacrypt"
+    },
+    {
+      "input": "test_files/img.png",
+      "output": "test_files/img.png.galacrypt"
     }
   ]
 }

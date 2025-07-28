@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.1.0] - 2025-07-28
+
+### Changes
+
+- added binary file support (can now encrypt/decrypt images, PDFs, etc.)
+
+### Upgrade
+
+To upgrade from **2.0.0** to **2.1.0**, you will need to do this:
+
+- update galacrypt `yarn add --dev @galadrim/galacrypt`
+
 ## [2.0.0] - 2024-05-02
 
 ### Changes

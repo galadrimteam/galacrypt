@@ -6,25 +6,25 @@ type EncryptedResult = {
   encryptedData: string;
 };
 
-const hash = (input: string) => {
+const hash = (input: Buffer) => {
   return crypto.createHash('sha256').update(input).digest('hex');
 };
 
-const encrypt = (text: string, secretKey: string) => {
+const encrypt = (data: Buffer, secretKey: string) => {
   const iv = crypto.randomBytes(16); // Initialization vector
   const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(secretKey, 'hex'), iv);
-  let encrypted = cipher.update(text);
+  let encrypted = cipher.update(data);
   encrypted = Buffer.concat([encrypted, cipher.final()]);
   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 };
 
 const decrypt = (text: EncryptedResult, secretKey: string) => {
   const iv = Buffer.from(text.iv, 'hex');
-  const encryptedText = Buffer.from(text.encryptedData, 'hex');
+  const encryptedData = Buffer.from(text.encryptedData, 'hex');
   const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(secretKey, 'hex'), iv);
-  let decrypted = decipher.update(encryptedText);
+  let decrypted = decipher.update(encryptedData);
   decrypted = Buffer.concat([decrypted, decipher.final()]);
-  return decrypted.toString();
+  return decrypted;
 };
 
 interface FileIoInput {
@@ -46,7 +46,7 @@ const getEncryptedHashIfExists = (path: string) => {
 };
 
 export const encryptFile = ({ inputPath, outputPath, secretKey }: FileIoInput) => {
-  const inputFileContent = fs.readFileSync(inputPath, 'utf8');
+  const inputFileContent = fs.readFileSync(inputPath);
   const outputFileHash = getEncryptedHashIfExists(outputPath);
   const inputFileHash = hash(inputFileContent);
 
