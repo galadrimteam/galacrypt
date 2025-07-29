@@ -18,11 +18,15 @@ export const encryptFiles = (config: FullGalacryptConfig) => {
       continue;
     }
     try {
-      encryptFile({ inputPath: file.input, outputPath: file.output, secretKey: config.key });
-      console.log(`Encrypted '${file.input}' to '${file.output}'`);
+      const encrypted = encryptFile({ inputPath: file.input, outputPath: file.output, secretKey: config.key });
+      if (encrypted) {
+        console.log(`Encrypted '${file.input}' to '${file.output}'`);
 
-      if (shouldGitAdd) {
-        execSync(`git add ${file.output}`);
+        if (shouldGitAdd) {
+          execSync(`git add ${file.output}`);
+        }
+      } else {
+        console.log(`Skipped '${file.input}' (already encrypted)`);
       }
     } catch {
       console.error(`Error encrypting '${file.output}' from '${file.input}'`);
