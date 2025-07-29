@@ -7,7 +7,7 @@ const getPackageManager = (options: GalacryptOptions) => {
     return 'pnpm';
   }
   if (options['--npm']) {
-    return 'npm';
+    return 'npx';
   }
   if (options['--bun']) {
     return 'bun';
