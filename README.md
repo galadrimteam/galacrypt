@@ -110,6 +110,26 @@ This will do the following things:
 - create a post-rewrite hook (e.g. `git rebase`) that will run `galacrypt decrypt`
 - create a post-merge hook (e.g. `git pull`) that will run `galacrypt decrypt`
 
+### Package Manager Configuration
+
+By default, Galacrypt uses `yarn` to run the git hooks. You can override this behavior by using one of the following flags when running `galacrypt init` or `galacrypt use <key>`:
+
+- `--yarn`: Use `yarn` (default)
+- `--pnpm`: Use `pnpm`
+- `--npm`: Use `npm`
+- `--bun`: Use `bun`
+- `--package-manager <command>`: Use a custom package manager command
+
+**Example:**
+
+```bash
+# Using pnpm
+galacrypt init --pnpm
+
+# Using a custom command
+galacrypt use <key> --package-manager "deno"
+```
+
 ## Usage
 
 ```bash

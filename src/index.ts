@@ -20,7 +20,7 @@ if (command === undefined || !COMMANDS.includes(command)) {
 }
 
 if (command === 'init') {
-  const key = createProject();
+  const key = createProject(GALACRYPT_OPTIONS);
 
   console.log('Generated key:', key);
   console.log('You should save this key in your team password managment system');
