@@ -18,7 +18,7 @@ export const getPackageManager = (options: GalacryptOptions) => {
   return 'yarn';
 };
 
-export const addHook = (hookName: string, hookContent: string, options: GalacryptOptions) => {
+export const addHook = (hookName: string, hookContent: string) => {
   const HOOK_CONTENT_WITH_SHEBANG = `#!/bin/sh\n${hookContent}`;
   const hooksPath = gethooksPath();
   const hookPath = `${hooksPath}/${hookName}`;
