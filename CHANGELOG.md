@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.2.0] - 2025-07-29
+
+### Changes
+
+- added package manager customization for git hooks (can now use `bun`, `npm`, or `pnpm` instead of default `yarn`)
+- refactored git hooks code to remove duplicate code and improve maintainability
+
+### Upgrade
+
+To upgrade from **2.1.0** to **2.2.0**, you will need to do this:
+
+- update galacrypt `yarn add --dev @galadrim/galacrypt`
+
 ## [2.1.0] - 2025-07-28
 
 ### Changes
