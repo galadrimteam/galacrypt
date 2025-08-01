@@ -14,10 +14,15 @@ export const encryptFiles = (config) => {
             continue;
         }
         try {
-            encryptFile({ inputPath: file.input, outputPath: file.output, secretKey: config.key });
-            console.log(`Encrypted '${file.input}' to '${file.output}'`);
-            if (shouldGitAdd) {
-                execSync(`git add ${file.output}`);
+            const encrypted = encryptFile({ inputPath: file.input, outputPath: file.output, secretKey: config.key });
+            if (encrypted) {
+                console.log(`Encrypted '${file.input}' to '${file.output}'`);
+                if (shouldGitAdd) {
+                    execSync(`git add ${file.output}`);
+                }
+            }
+            else {
+                console.log(`Skipped '${file.input}' (already encrypted)`);
             }
         }
         catch {

@@ -51,7 +51,7 @@ export const encryptFile = ({ inputPath, outputPath, secretKey }: FileIoInput) =
   const inputFileHash = hash(inputFileContent);
 
   if (outputFileHash && outputFileHash === inputFileHash) {
-    return;
+    return false;
   }
 
   const encrypted = encrypt(inputFileContent, secretKey);
@@ -61,6 +61,7 @@ ${encrypted.iv}
 ${encrypted.encryptedData}`;
 
   fs.writeFileSync(outputPath, outputFileContent);
+  return true;
 };
 
 export const decryptFile = ({ inputPath, outputPath, secretKey }: FileIoInput) => {
@@ -69,7 +70,7 @@ export const decryptFile = ({ inputPath, outputPath, secretKey }: FileIoInput) =
 
   if (lines.length !== 4) {
     console.error(`Invalid file format (${inputPath})`);
-    return;
+    return false;
   }
 
   const iv = lines[2];
@@ -77,4 +78,5 @@ export const decryptFile = ({ inputPath, outputPath, secretKey }: FileIoInput) =
   const decrypted = decrypt({ iv, encryptedData }, secretKey);
 
   fs.writeFileSync(outputPath, decrypted);
+  return true;
 };

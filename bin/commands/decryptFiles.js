@@ -16,8 +16,13 @@ export const decryptFiles = (config) => {
             continue;
         }
         try {
-            decryptFile({ inputPath: file.output, outputPath: file.input, secretKey: config.key });
-            console.log(`Decrypted '${file.input}' from '${file.output}'`);
+            const decrypted = decryptFile({ inputPath: file.output, outputPath: file.input, secretKey: config.key });
+            if (decrypted) {
+                console.log(`Decrypted '${file.input}' from '${file.output}'`);
+            }
+            else {
+                console.log(`Skipped '${file.input}' (already decrypted or invalid format)`);
+            }
         }
         catch {
             console.error(`Error decrypting '${file.input}' from '${file.output}'`);
