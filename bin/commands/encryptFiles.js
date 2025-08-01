@@ -21,9 +21,6 @@ export const encryptFiles = (config) => {
                     execSync(`git add ${file.output}`);
                 }
             }
-            else {
-                console.log(`Skipped '${file.input}' (already encrypted)`);
-            }
         }
         catch {
             console.error(`Error encrypting '${file.output}' from '${file.input}'`);

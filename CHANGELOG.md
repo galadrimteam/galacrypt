@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.2.1] - 2025-08-01
+
+### Changes
+
+- less verbose: only show encryption/decryption message when file is actually changed
+
+### Upgrade
+
+To upgrade from **2.2.0** to **2.2.1**, you will need to do this:
+
+- update galacrypt `yarn add --dev @galadrim/galacrypt`
+
 ## [2.2.0] - 2025-07-29
 
 ### Changes

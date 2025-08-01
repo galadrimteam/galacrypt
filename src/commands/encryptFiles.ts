@@ -25,8 +25,6 @@ export const encryptFiles = (config: FullGalacryptConfig) => {
         if (shouldGitAdd) {
           execSync(`git add ${file.output}`);
         }
-      } else {
-        console.log(`Skipped '${file.input}' (already encrypted)`);
       }
     } catch {
       console.error(`Error encrypting '${file.output}' from '${file.input}'`);

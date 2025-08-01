@@ -20,9 +20,6 @@ export const decryptFiles = (config) => {
             if (decrypted) {
                 console.log(`Decrypted '${file.input}' from '${file.output}'`);
             }
-            else {
-                console.log(`Skipped '${file.input}' (already decrypted or invalid format)`);
-            }
         }
         catch {
             console.error(`Error decrypting '${file.input}' from '${file.output}'`);
