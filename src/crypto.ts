@@ -38,7 +38,7 @@ const getEncryptedHashIfExists = (path: string) => {
 
   const content = fs.readFileSync(path, 'utf8');
 
-  const lines = content.split('\n');
+  const lines = content.trim().split('\n');
 
   if (lines.length !== 4) return null;
 
@@ -66,7 +66,7 @@ ${encrypted.encryptedData}`;
 
 export const decryptFile = ({ inputPath, outputPath, secretKey }: FileIoInput) => {
   const encryptedFileContent = fs.readFileSync(inputPath, 'utf8');
-  const lines = encryptedFileContent.split('\n');
+  const lines = encryptedFileContent.trim().split('\n');
 
   if (lines.length !== 4) {
     console.error(`Invalid file format (${inputPath})`);
