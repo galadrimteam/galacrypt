@@ -1,7 +1,6 @@
 {
   "name": "@galadrim/galacrypt",
-  "version": "2.2.1",
-  "private": false,
+  "version": "2.3.0",
   "type": "module",
   "main": "./bin/index.js",
   "module": "./src/index.ts",
@@ -11,9 +10,10 @@
     "build": "rm -rf bin && tsc && chmod +x ./bin/index.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
-    "start": "yarn build && ./bin/index.js",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "start": "npm run build && ./bin/index.js",
+    "test": "rm -rf bin && vitest run",
+    "test:watch": "rm -rf bin && vitest",
+    "deploy": "npm run build && npm publish --access public"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
@@ -39,7 +39,5 @@
     "README.md",
     "package.json"
   ],
-  "bin": {
-    "galacrypt": "./bin/index.js"
-  }
+  "bin": "./bin/index.js"
 }

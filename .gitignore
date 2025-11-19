@@ -5,3 +5,4 @@ build
 .env.staging
 test_files/*
 !test_files/*.galacrypt
+bin/*

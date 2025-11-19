@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.3.0] - 2025-11-19
+
+### Changes
+
+- allow .galacrypt files to end with `\n` (editors sometimes add `\n` to files)
+- add some tests
+
+### Upgrade
+
+To upgrade from **2.2.X** to **2.3.0**, you will need to do this:
+
+- update galacrypt `yarn add --dev @galadrim/galacrypt`
+
 ## [2.2.1] - 2025-08-01
 
 ### Changes
